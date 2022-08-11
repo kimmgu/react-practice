@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react'
 import Movie from '../components/Movie'
+import styles from './Home.module.css'
 
 function Home() {
   const [loading, setLoading] = useState(true)
   const [movies, setMovies] = useState([])
   const getMovies = async () => {
-    // const res = await fetch(
-    //   `https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`
-    // )
-    // const json = await res.json()
     const json = await (
       await fetch(
         `https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`
@@ -20,14 +17,14 @@ function Home() {
   useEffect(() => {
     getMovies()
   }, [])
-  // console.log(movies)
   return (
-    <div className="App">
-      <h1>Movie App</h1>
+    <div className={styles.container}>
       {loading ? (
-        <h2>Loading...</h2>
+        <div className={styles.loader}>
+          <span>Loading...</span>
+        </div>
       ) : (
-        <div>
+        <div className={styles.movies}>
           {movies.map((movie) => (
             <Movie
               key={movie.id}
